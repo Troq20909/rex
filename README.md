@@ -4,6 +4,31 @@ A lightweight domain-specific language for high-performance scientific research 
 Transpiles `.rex` source files to native Zig code — producing small (<85KB), fast binaries
 with zero runtime overhead.
 
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python](https://img.shields.io/badge/python-3.8+-green.svg)
+![Zig](https://img.shields.io/badge/zig-0.15.2+-orange.svg)
+
+---
+
+## Why Rex?
+
+Research computational models often require:
+- **Fast prototyping** with scientific-domain shortcuts (no boilerplate for quantum walks, molecular energy, etc.)
+- **Production-ready binaries** (<85KB, zero garbage collector, no runtime overhead)
+- **Lab integration** (CSV export, DAQ support, embedded no_std systems)
+- **Zero dependencies** — single Python transpiler, single Zig runtime file
+
+Rex is designed by and for researchers who need speed and simplicity without sacrificing performance.
+
+---
+
+## How It Works
+
+```
+Your .rex model → Python transpiler → Native Zig code → Compiled binary
+(High-level)      (Pure Python)      (Optimized)      (Fast & small)
+```
+
 ---
 
 ## Features
@@ -15,14 +40,54 @@ with zero runtime overhead.
 
 ---
 
-## Quick Start
-```bash
-# Transpile a Rex model
-python rex_transpiler.py examples/example_chemistry.rex
+## Use Cases
 
-# Compile and run (requires Zig 0.15.2)
+| Research Area | What you can model |
+|---|---|
+| **Quantum Physics** | Quantum chaos, CTQW, Loschmidt echo, level spacing |
+| **Graph Theory** | Spectral analysis, Fiedler values, algebraic connectivity |
+| **Random Matrices** | GOE ensembles, Wigner surmise, eigenvalue statistics |
+| **Chemistry** | Hückel molecular orbitals, reaction rates, quantum Hamiltonians |
+| **Genomics** | DNA analysis, CRISPR off-target prediction, gene expression |
+| **Fluid Dynamics** | Heat equations, Burgers equation, 2D Navier-Stokes, turbulence |
+| **Thermodynamics** | Carnot efficiency, phase transitions, mean-field models |
+
+---
+
+## Quick Start
+
+### 1. Install Requirements
+```bash
+# Install Python 3.8+ and Zig 0.15.2
+git clone https://github.com/Troq20909/rex.git
+cd rex
+```
+
+### 2. Transpile a Model
+```bash
+python rex_transpiler.py examples/example_chemistry.rex
+```
+
+Output: `example_chemistry.zig` (generated Zig source)
+
+### 3. Compile and Run
+```bash
 zig run examples/example_chemistry.zig
 ```
+
+Expected output:
+```
+Hückel energy: 2.000000
+Reaction rate (Arrhenius, 298K): 5.234e-12
+```
+
+### 4. Export Results to CSV
+```bash
+# Modify your .rex to include:
+export_csv all_results to "results.csv";
+```
+
+Results automatically saved to `results.csv` for analysis in your lab workflow.
 
 ---
 
@@ -66,8 +131,11 @@ zig run examples/example_chemistry.zig
 ---
 
 ## Language Reference
+
+### Basic Syntax
+
 ```rex
-// Graphs
+// Define a graph
 graph g = (undirected, [(0,1),(1,2),(2,0)]);
 laplacian_spectrum g;
 fiedler_value g;
@@ -98,9 +166,35 @@ lab_daq_output "data.bin" to stdout;
 
 ---
 
+## Lab-Ready Features
+
+### CSV Export
+Automatically export computed results for downstream analysis:
+```rex
+export_csv all_results to "lab_output.csv";
+```
+Generates a standard CSV with headers and numeric precision suitable for Excel, Python, or R.
+
+### DAQ Integration
+Pipe binary data directly to lab instruments or data acquisition systems:
+```rex
+lab_daq_output "buffer.bin" to stdout;
+```
+Compatible with serial ports, network sockets, and embedded instruments.
+
+### Embedded (no_std) Support
+Deploy on resource-constrained systems (embedded boards, edge devices, IoT):
+```rex
+embedded_no_std;
+```
+Produces a fully self-contained binary with no external dependencies.
+
+---
+
 ## Installation
 
 **Requirements:** Python 3.8+, Zig 0.15.2
+
 ```bash
 git clone https://github.com/Troq20909/rex.git
 cd rex
@@ -111,6 +205,7 @@ zig run examples/example_full.zig
 ---
 
 ## Project Structure
+
 ```
 rex/
 ├── rex_transpiler.py   # Rex → Zig transpiler (pure Python)
@@ -146,6 +241,13 @@ rex/
 - [ ] WebAssembly target
 - [ ] Jupyter notebook integration
 - [ ] More domain keywords
+- [ ] Python bindings for interactive research
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding new domain keywords and extending Rex.
 
 ---
 
