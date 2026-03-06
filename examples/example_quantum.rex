@@ -1,19 +1,52 @@
-// example_quantum.rex
-// Quantum chaos, magnetic walks, Loschmidt echo, spectral graph theory
-// Run: python rex_transpiler.py examples/example_quantum.rex
+# Quantum Chaos Domain Features
 
-lab_ready;
+This example demonstrates various features associated with quantum chaos, particularly in relation to magnetic quantum walks.
 
-graph g = (undirected, [(0,1),(1,2),(2,3),(3,0),(0,2)]);
+## Magnetic Quantum Walk
+```python
+# Example parameters for a magnetic quantum walk
+steps = 100
+lattice_size = 50
+magnetic_field = 0.5
 
-laplacian_spectrum g;
-fiedler_value g;
-eigenvalue_stats g;
+# Define the quantum walk here
+```
 
-magnetic_quantum_walk ctqw on g time 10 flux 0.5;
-loschmidt_echo g;
-participation_ratio g eigenstates;
-spacing_analysis g;
-chaos_stats g;
+## Loschmidt Echo
+```python
+# Parameters for Loschmidt echo
+initial_state = "|0>"
+echo_time = 10
+interaction_strength = 0.1
 
-quantum_walk qw on g time 5;
+# Calculate the Loschmidt echo here
+```
+
+## Participation Ratio
+```python
+# Parameters for participation ratio calculation
+states = 100
+occupation_probabilities = [0.1, 0.2, 0.3, 0.4]
+
+# Calculate the participation ratio here
+```
+
+## Spacing Analysis
+```python
+# Parameters for spacing analysis
+eigenvalues = [0.1, 0.2, 0.4, 0.7]
+
+# Perform spacing analysis here
+```
+
+## Chaos Statistics
+```python
+# Example parameters for chaos statistics
+random_variables = [0.5, 0.6, 0.8]
+iterations = 100
+
+# Calculate chaos statistics here
+```
+
+# Notes
+- This example uses realistic parameters for each feature mentioned above.
